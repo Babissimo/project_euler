@@ -6,27 +6,42 @@
 # f(0) = b so b is prime so b is 3 or 6k+-1 so b is odd so a is odd.
 # f(1) = a + b + 1 if prime then a + b + 1 >= 3 then a >= 2 - b
 
-def checkPrime(n):
-    pass
-
 mostPrimes = 0
-bestA = 0
-bestB = 0
+bestAB = (0, 0)
+primeList = {2, 3, 5, 7}
 
-#test b = 3
-for b in range(6, 998, 6):
-    # b+1
-    # b-1
+def checkPrime(p):
+    if p in primeList:
+        return True
+    if p < 1: 
+        return False
+    for i in range(12, int(p**1/2)+6):
+        if p%(i-1) == 0 or p%(i+1) == 0:
+            return False
+    primeList.add(p)
+    return True
+    
+
+def testB(b):
+    global mostPrimes
+    global bestAB
     for a in range(2-b, 1000, 2):
-        nPrime = True
-        n = 0
-        while nPrime:
-            nPrime = checkPrime(n)
-            n += 1
-        n -= 1
-        if n > mostPrimes:
-            mostPrimes = n
-            bestA = a
-            bestB = b
+            nPrime = True
+            n = -1
+            f = b
+            while nPrime:
+                n += 1
+                nPrime = checkPrime(f)
+                f += a + 2*n + 1
+            if n > mostPrimes:
+                mostPrimes = n
+                bestAB = (a, b)
 
-print(a*b)
+testB(3)
+for c in range(6, 997, 6):
+    # b is c+-1
+    testB(c-1)
+    testB(c+1)
+
+
+print(bestAB[0]*bestAB[1])
