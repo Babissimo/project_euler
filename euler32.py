@@ -2,12 +2,13 @@ import time
 from itertools import permutations
 
 def check_permutation(perm):
-    multiplicand1 = perm[0]
-    multiplicand2 = perm[0] * 10 + perm[1]
-    multiplier2 = perm[2] * 100 + perm[3] * 10 + perm[4]
-    multiplier1 = perm[1] * 1000 + multiplier2
+    multiplicand = perm[0] * 10 + perm[1]
+    multiplier = perm[2] * 100 + perm[3] * 10 + perm[4]
     product = perm[5] * 1000 + perm[6] * 100 + perm[7] * 10 + perm[8]
-    if multiplicand1 * multiplier1 == product or multiplicand2 * multiplier2 == product:
+    if multiplicand * multiplier == product:
+        return product
+    multiplier += perm[1] * 1000
+    if perm[0] * multiplier == product:
         return product
     return 0
 
