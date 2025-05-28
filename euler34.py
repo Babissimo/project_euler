@@ -1,6 +1,8 @@
 # a curious number is the sum of the factorial of its digits
 # eg 145 = 1!+4!+5!
 
+import time
+
 factorials = [1]
 factorials = [factorials[-1] for n in range(0, 10) if not factorials.append(max(n,1) * factorials[-1])]
 
@@ -16,11 +18,15 @@ def numberIsCurious(number):
 
 
 if __name__ == '__main__':
-
+    start = time.time()
     for i in range(3, 2177281): # big upper bound based on 6 * 9! + 1 as an easy limit
         if numberIsCurious(i):
             curiousSum += i
     print(curiousSum)
+    end = time.time()
+    print(f"{end-start}")
 
 
-# maybe speed gains to be had from avoiding repeated work. dynamic programming?
+
+# maybe speed gains to be had from avoiding repeated work. dynamic programming
+# tried this and slowed things down a lot..
